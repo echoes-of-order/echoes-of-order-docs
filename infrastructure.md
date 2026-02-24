@@ -2,6 +2,8 @@
 
 **Related docs:** [Architecture](architecture.md) (service layout, realm model, communication) · [Current State](game-status.md) (what is deployed today) · [Current Work](current-work.md) (scaling, Event Bus, observability) · [Diagrams](diagrams.md) (warmup, layer merge, metrics)
 
+Echoes of Order runs on **Kubernetes** (k3s locally), with **Helm** for deployments, **Traefik** for ingress, **PostgreSQL** per domain (Auth, Global, Realm), and **Redis** for sessions and cache. Each realm gets its own DB, Event Bus, and simulation pods; scaling is horizontal (more pods) and realm-based (more realms). Below: philosophy, stack, database layout, realm isolation, scaling, and component model.
+
 ---
 
 ## Philosophy

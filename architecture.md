@@ -2,6 +2,8 @@
 
 **Related docs:** [Infrastructure](infrastructure.md) (deployment, databases, scaling) · [Current State](game-status.md) (implemented services) · [Current Work](current-work.md) (Event Bus, zone architecture) · [Diagrams](diagrams.md) (sequence diagrams for login, reconnect, layers, Event Bus)
 
+The system is built around **realm authority** (single source of truth per realm) and **replaceable simulations** (combat, movement, NPCs) that propose outcomes but never own state. Realms are isolated; shared services (Auth, Global-Backend, Armory, Image-Server) provide identity and static data. Communication is HTTP/gRPC for request/response and an Event Bus for Realm Core ↔ Simulation. Below: authority vs. simulation, realm model, service layout, and extracted components.
+
 ---
 
 ## Authority & Simulation

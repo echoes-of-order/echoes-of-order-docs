@@ -55,7 +55,7 @@ I *do* commit to:
 - Being transparent about what exists, what does not, and why
 - Communicating trade-offs and reasoning when choices are made
 
-Important decisions are written down and made available — so anyone can follow the reasoning, even years later. See [Current Work](current-work.md) for active explorations and key past decisions, and the project repository under `docs/3_decisions` and `docs/4_explorations` for full write-ups.
+Important decisions are written down and made available — so anyone can follow the reasoning, even years later. See [Current Work](current-work.md) for active explorations and key past decisions, and [Explorations](explorations/README.md) for full exploration write-ups. Decision records (context, rationale) are in the project repository under `docs/3_decisions`.
 
 ## The Game
 

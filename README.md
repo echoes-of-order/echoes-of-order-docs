@@ -1,6 +1,22 @@
 # Echoes of Order
 
-**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md)
+A **systems-driven, persistent online world** — authority, simulation, and long-term consistency first.
+
+**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md)
+
+---
+
+## Who This Documentation Is For
+
+This documentation is written for **sponsors, technical readers, and anyone** who wants a clear view of what Echoes of Order is, how it is built, and where the project stands. No marketing fluff — decisions, trade-offs, and current state are documented so that reasoning is traceable and transparent.
+
+---
+
+## How to Read This Documentation
+
+- **New to the project?** Start with this README, then [Architecture](architecture.md) (how the world is owned and how simulations work), then [Current State](game-status.md) (what exists today).
+- **Interested in operations and deployment?** [Infrastructure](infrastructure.md) and [Diagrams](diagrams.md) (sequence flows).
+- **Want to see what’s being explored or decided?** [Current Work](current-work.md). Full exploration write-ups are in [Explorations](explorations/README.md). Decision records (context, rationale) live in the project repository under `docs/3_decisions`.
 
 ---
 
@@ -155,9 +171,24 @@ The architecture is real. The systems are evolving. The game itself is still bec
 | [Architecture](architecture.md) | Authority vs. simulation, realm model, service layout, communication (HTTP/gRPC, Event Bus). Start here for how the world is owned and how simulations propose changes. |
 | [Infrastructure](infrastructure.md) | Kubernetes (k3s), Helm, Traefik, database layout (Auth/Global/Realm), realm isolation, scaling model. Complements [Architecture](architecture.md) with deployment and operations. |
 | [Current State](game-status.md) | What exists today (services, infra, domain engines) and what does not (gameplay, content). Honest assessment of the current phase. |
-| [Current Work](current-work.md) | Active technology and game-design explorations, accepted/rejected decisions, links to related docs and to full exploration documents in the project repository. |
+| [Current Work](current-work.md) | Active technology and game-design explorations, accepted/rejected decisions, status at a glance. Links to related docs and to full write-ups. |
+| [Explorations](explorations/README.md) | Full exploration documents (active, accepted, on-hold, rejected). One document per exploration; some are in German. |
 | [Diagrams](diagrams.md) | Index of all sequence diagrams (login, reconnect, layer migration, Event Bus, warmup, dungeon flow, etc.) with short descriptions and where they are referenced. |
 | [Project Goals](project.md) | Design goals (authority first, simulation as a service, persistence, scalability) and who this project is for. |
 | [About the Developer](about-me.md) | Who builds this, background, transparency commitment. |
 
-Full exploration write-ups and decision records (context, rationale, trade-offs) live in the project repository under `docs/4_explorations` and `docs/3_decisions`.
+Full exploration write-ups are in [Explorations](explorations/README.md). Decision records (context, rationale, trade-offs) live in the project repository under `docs/3_decisions`.
+
+---
+
+## Key Terms
+
+| Term | Meaning |
+|------|--------|
+| **Realm** | An isolated, authoritative instance of the game world with its own database, event stream, and simulation workers. No cross-realm state. |
+| **Authority / Realm Authority** | The single source of truth per realm. Validates all changes; simulations propose, authority commits. |
+| **Simulation** | Non-authoritative service that runs combat, NPC behaviour, movement, or local world logic. Replaceable at any time; never owns state. |
+| **Event Bus** | Pub/sub messaging (e.g. NATS/JetStream) between Realm Core and Realm Simulations. No direct Realm ↔ Simulation calls. |
+| **Layer** | A logical shard of a zone (e.g. to cap players per instance). One simulation per layer; layers can be merged or scaled. |
+| **Realm Core** | The service that embodies realm authority: attaches sessions, talks to simulations via gRPC and Event Bus, persists state. |
+| **Realm Gateway** | Entry point for clients: authenticates, routes to the correct realm, exposes WebSocket for gameplay. |

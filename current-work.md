@@ -2,9 +2,11 @@
 
 This document lists what is being actively explored and recently decided. It gives sponsors a transparent view of where effort goes. No timelines — only status and focus.
 
-Explorations follow a structured process: research, analysis, decision (accept/reject/on-hold). **Full exploration write-ups** (context, rationale, trade-offs) live in the project repository under `docs/4_explorations` and `docs/3_decisions`.
+Explorations follow a structured process: research, analysis, decision (accept/reject/on-hold). **Full exploration write-ups** are in [Explorations](explorations/README.md). Decision records (context, rationale, trade-offs) live in the project repository under `docs/3_decisions`.
 
-**Related docs:** [Architecture](architecture.md) (authority, realm model, service layout) · [Infrastructure](infrastructure.md) (stack, scaling, realm isolation) · [Current State](game-status.md) (what exists today) · [Diagrams](diagrams.md) (sequence diagrams for flows)
+**Related docs:** [Architecture](architecture.md) (authority, realm model, service layout) · [Infrastructure](infrastructure.md) (stack, scaling, realm isolation) · [Current State](game-status.md) (what exists today) · [Explorations](explorations/README.md) (full write-ups) · [Diagrams](diagrams.md) (sequence diagrams for flows)
+
+**Status at a glance:** 14 active technology explorations, 2 active game design explorations, 2 accepted (Kubernetes migration, Quest design), 1 on hold (Automated API testing). Rejected explorations: [Explorations → Rejected](explorations/README.md#rejected).
 
 ---
 
@@ -63,7 +65,7 @@ Explorations follow a structured process: research, analysis, decision (accept/r
 
 ## Rejected
 
-Rejected explorations are documented in the project repository under `docs/4_explorations/rejected/` with reasons and lessons learned. Example: GraphQL subscriptions vs. Colyseus (rejected in favour of the current WebSocket/Event Bus approach). The current communication model is described in [Architecture](architecture.md#communication).
+Rejected explorations are listed in [Explorations → Rejected](explorations/README.md#rejected) with full write-ups (reasons and lessons learned). Example: [GraphQL subscriptions vs. Colyseus](explorations/rejected/technology/2025-01-graphql-subscriptions-vs-colyseus.md) (rejected in favour of the current WebSocket/Event Bus approach). The current communication model is described in [Architecture](architecture.md#communication).
 
 ---
 

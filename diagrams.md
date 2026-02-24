@@ -1,6 +1,6 @@
 # Sequence Diagrams & Visuals
 
-This page indexes all sequence diagrams and key visuals used in the documentation. Use them to understand flows in depth; the main docs link here where relevant.
+This page indexes all sequence diagrams and key visuals used in the documentation. **How to use:** open a diagram when you need step-by-step flow (e.g. login, reconnect, layer merge); the "Referenced in" column points to the doc sections that describe the same flow in prose. Inline Mermaid charts for service topology stay in [Architecture](architecture.md#service-layout) and [Infrastructure](infrastructure.md#stack).
 
 | Diagram | Description | Referenced in |
 |--------|-------------|----------------|
