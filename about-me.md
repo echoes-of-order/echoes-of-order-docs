@@ -1,5 +1,9 @@
 # About the Developer
 
+**Related docs:** [Project Goals](project.md) (what is being built and why) · [README](README.md) (project overview) · [Current Work](current-work.md) (transparency on explorations and decisions)
+
+---
+
 ## André Jens Meyer
 
 36 years old. Senior Full Stack Software Engineer & DevOps Specialist. Based in **Germany**. 15+ years of experience building and operating systems at scale.
@@ -51,7 +55,7 @@ I *do* commit to:
 - Being transparent about what exists, what does not, and why
 - Communicating trade-offs and reasoning when choices are made
 
-Important decisions are written down and made available — so anyone can follow the reasoning, even years later.
+Important decisions are written down and made available — so anyone can follow the reasoning, even years later. See [Current Work](current-work.md) for active explorations and key past decisions, and the project repository under `docs/3_decisions` and `docs/4_explorations` for full write-ups.
 
 ## The Game
 

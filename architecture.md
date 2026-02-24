@@ -1,5 +1,9 @@
 # Architecture
 
+**Related docs:** [Infrastructure](infrastructure.md) (deployment, databases, scaling) · [Current State](game-status.md) (implemented services) · [Current Work](current-work.md) (Event Bus, zone architecture) · [Diagrams](diagrams.md) (sequence diagrams for login, reconnect, layers, Event Bus)
+
+---
+
 ## Authority & Simulation
 
 The architecture is built around a clear separation:
@@ -37,6 +41,8 @@ Realms share only:
 - Account and authentication (Auth-Backend)
 - Static templates: items, classes, NPC definitions (Global-Backend, Armory-Backend)
 - Asset delivery (Image-Server)
+
+The corresponding database and deployment layout (Auth DB, Global-DB, Realm-DB per realm) is described in [Infrastructure](infrastructure.md#database-layout) and [Infrastructure](infrastructure.md#realm-isolation).
 
 This isolation enables:
 
@@ -154,9 +160,9 @@ flowchart TB
 
 ## Communication
 
-- **Synchronous (HTTP/gRPC):** Service-to-service calls. Auth, Realm Gateway, Global-Backend, Realm Core, World Event Backend.
-- **Persistence (SQL):** Auth DB, Global-DB, Realm-DB. Account lookup, world data, character/item/progress events.
-- **Pub/sub (Event Bus):** Realm Core ↔ Realm Simulation. gRPC messages, world state, desired state apply.
+- **Synchronous (HTTP/gRPC):** Service-to-service calls. Auth, Realm Gateway, Global-Backend, Realm Core, World Event Backend. See [Current Work](current-work.md) for gRPC Character Service decision and Event Bus exploration.
+- **Persistence (SQL):** Auth DB, Global-DB, Realm-DB. Account lookup, world data, character/item/progress events. See [Infrastructure](infrastructure.md#database-layout).
+- **Pub/sub (Event Bus):** Realm Core ↔ Realm Simulation. gRPC messages, world state, desired state apply. Event Bus flow is illustrated in [Diagrams](diagrams.md) (sequence-world-event-eventbus).
 
 ## Event & State Flow
 
@@ -166,7 +172,7 @@ flowchart TB
 4. Relevant clients receive updates via WebSocket
 
 The authority never trusts simulation output blindly. It applies rules, checks constraints,
-and only then commits.
+and only then commits. For sequence-level detail (login, reconnect, layer migration, dungeon entry/exit), see [Diagrams](diagrams.md).
 
 ## Extracted Components
 
@@ -203,4 +209,4 @@ validates and commits them.
   across the monorepo.
 
 This structure keeps the authority/simulation boundary clear while allowing domain logic
-to evolve independently and be tested in isolation.
+to evolve independently and be tested in isolation. The same stack (Helm, per-realm resources, shared packages) is described from an operations perspective in [Infrastructure](infrastructure.md#component-model).

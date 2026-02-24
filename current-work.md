@@ -2,7 +2,9 @@
 
 This document lists what is being actively explored and recently decided. It gives sponsors a transparent view of where effort goes. No timelines — only status and focus.
 
-Explorations follow a structured process: research, analysis, decision (accept/reject/on-hold). Full documents live in the project repository under `docs/4_explorations` and `docs/3_decisions`.
+Explorations follow a structured process: research, analysis, decision (accept/reject/on-hold). **Full exploration write-ups** (context, rationale, trade-offs) live in the project repository under `docs/4_explorations` and `docs/3_decisions`.
+
+**Related docs:** [Architecture](architecture.md) (authority, realm model, service layout) · [Infrastructure](infrastructure.md) (stack, scaling, realm isolation) · [Current State](game-status.md) (what exists today) · [Diagrams](diagrams.md) (sequence diagrams for flows)
 
 ---
 
@@ -25,6 +27,8 @@ Explorations follow a structured process: research, analysis, decision (accept/r
 | **SSH Key Management & Security** | Ed25519, certificate-based SSH, Teleport/Vault patterns. | Infra access, audit, rotation |
 | **WebAssembly Combat Performance** | Evaluating WASM for combat resolution performance. | Hot path optimization |
 
+**Context:** Event Bus and Zone Architecture tie directly into [Architecture](architecture.md#communication) (Realm Core ↔ Simulation via pub/sub) and [Infrastructure](infrastructure.md#realm-isolation) (per-realm Event Bus). See [Diagrams](diagrams.md) for sequence flows (world events, layer migration, warmup/scaling). Observability and scaling (OpenTelemetry, Player Count Telemetry, Bare-Metal Scheduling) support the model described in [Infrastructure](infrastructure.md#scaling-model) and [Architecture](architecture.md#service-layout).
+
 ---
 
 ## Active Game Design Explorations
@@ -34,6 +38,8 @@ Explorations follow a structured process: research, analysis, decision (accept/r
 | **Custom Spell Creation (Morrowind-Inspired)** | Optional ability creation for enthusiasts. Gold for creation, resources for use. Instability risk for strong abilities. | Depth without forcing complexity |
 | **Tutorial Design (MMO Principles)** | Josh Strife Hays' four principles. Hidden tutorials, competence over completion. | Onboarding without hand-holding |
 
+**Context:** Game design explorations feed into the target player experience described in the [main README](README.md#player-experience-target-state) and [Project Goals](project.md). Current playable state is summarised in [Current State](game-status.md).
+
 ---
 
 ## Accepted (Recently Decided)
@@ -42,6 +48,8 @@ Explorations follow a structured process: research, analysis, decision (accept/r
 |-------------|---------|
 | **Kubernetes vs. Docker Compose** | Kubernetes chosen. Migration completed. Multi-realm management, scaling, and production-readiness require K8s. |
 | **Quest Design (Morrowind-Inspired)** | Accepted as design direction. Story-driven quests, long texts, multiple paths, consequences. Short summaries for action-focused players. Implementation to follow. |
+
+**Context:** Kubernetes migration is reflected in [Infrastructure](infrastructure.md) and [Current State](game-status.md). Quest design aligns with the persistent, consequential world in [README](README.md#core-idea).
 
 ---
 
@@ -55,7 +63,7 @@ Explorations follow a structured process: research, analysis, decision (accept/r
 
 ## Rejected
 
-Rejected explorations are documented in `docs/4_explorations/rejected/` with reasons and lessons learned. Examples: GraphQL subscriptions vs. Colyseus (rejected in favour of current approach).
+Rejected explorations are documented in the project repository under `docs/4_explorations/rejected/` with reasons and lessons learned. Example: GraphQL subscriptions vs. Colyseus (rejected in favour of the current WebSocket/Event Bus approach). The current communication model is described in [Architecture](architecture.md#communication).
 
 ---
 
@@ -66,7 +74,7 @@ Rejected explorations are documented in `docs/4_explorations/rejected/` with rea
 | **Kubernetes Migration** | k3s, Helm, phased migration. Implemented. | 2026-01 |
 | **gRPC for Character Service** | Typed contracts for service-to-service. Implemented. | 2024-12 |
 
-Full decision records (context, rationale, trade-offs) are in `docs/3_decisions/`.
+Full decision records (context, rationale, trade-offs) are in the project repository under `docs/3_decisions/`. The Kubernetes migration decision directly underpins [Infrastructure](infrastructure.md); the gRPC decision is reflected in [Architecture](architecture.md#communication) and the service layout.
 
 ---
 

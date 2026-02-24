@@ -1,12 +1,16 @@
 # Current State
 
+**Related docs:** [Architecture](architecture.md) (service layout, authority/simulation) · [Infrastructure](infrastructure.md) (stack, databases, scaling) · [Current Work](current-work.md) (explorations and recent decisions) · [README](README.md) (scope and design focus)
+
+---
+
 ## What Exists
 
 **Infrastructure**
 
-- Kubernetes deployment (Helm charts, k3s for local dev)
+- Kubernetes deployment (Helm charts, k3s for local dev). See [Infrastructure](infrastructure.md#stack) and [Infrastructure](infrastructure.md#realm-isolation).
 - Traefik ingress, TLS, service routing
-- Separate PostgreSQL instances: auth, global, realm, armory, image-server
+- Separate PostgreSQL instances: auth, global, realm, armory, image-server. See [Infrastructure](infrastructure.md#database-layout).
 - Redis for sessions and caching
 
 **Services**
@@ -21,6 +25,8 @@
 - **Wiki:** Client, Backend, Documentation Exporter — persist + search via Realm-DB
 - **Image-Server:** Media and asset handling
 - **Observability:** Elastic/Kibana, Grafana, Prometheus (traces, logs, metrics)
+
+Service roles and data flow are described in [Architecture](architecture.md#service-layout) and [Architecture](architecture.md#communication).
 
 **Architecture**
 
@@ -67,4 +73,4 @@ There is *not* yet:
 
 The goal right now is **correctness and coherence**. Gameplay will build on top of that — when the foundation is ready. No promises beyond that.
 
-For what is currently being explored (Event Bus, Zone Architecture, Event Sourcing, Zero Trust, etc.), see [Current Work](current-work.md).
+For what is currently being explored (Event Bus, Zone Architecture, Event Sourcing, Zero Trust, etc.), see [Current Work](current-work.md). For sequence diagrams (login, reconnect, layers), see [Diagrams](diagrams.md).

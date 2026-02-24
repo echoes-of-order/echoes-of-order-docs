@@ -1,5 +1,9 @@
 # Infrastructure
 
+**Related docs:** [Architecture](architecture.md) (service layout, realm model, communication) · [Current State](game-status.md) (what is deployed today) · [Current Work](current-work.md) (scaling, Event Bus, observability) · [Diagrams](diagrams.md) (warmup, layer merge, metrics)
+
+---
+
 ## Philosophy
 
 Infrastructure is not an afterthought. It is part of the game design.
@@ -24,9 +28,9 @@ Echoes of Order runs on Kubernetes because:
 
 ## Database Layout
 
-- **Auth DB** (Master + Replicas): Account lookup, character/item/progress events (Armory)
-- **Global-DB** (Master + Replicas): World data export, realm/character metadata
-- **Realm-DB** (Master + Replicas): Character events, player count, login history, world state, wiki persist + search
+- **Auth DB** (Master + Replicas): Account lookup, character/item/progress events (Armory). Used by Auth Backend and Armory; see [Architecture](architecture.md#service-layout) for the request flow.
+- **Global-DB** (Master + Replicas): World data export, realm/character metadata. Feeds Global-Backend and realm/character index; see [Architecture](architecture.md#realm-model) for what realms share.
+- **Realm-DB** (Master + Replicas): Character events, player count, login history, world state, wiki persist + search. One per realm; see [Realm Isolation](#realm-isolation) below.
 
 ## Realm Isolation
 
@@ -37,7 +41,7 @@ Each realm gets:
 - Own simulation pods (Zones, Instances, Warmup)
 - Own ingress rules if needed
 
-Shared services (Auth, Global, Armory, Wiki) are stateless where possible and scoped by realm ID where not.
+Shared services (Auth, Global, Armory, Wiki) are stateless where possible and scoped by realm ID where not. The logical split between realm-owned and shared is described in [Architecture](architecture.md#realm-model).
 
 ## Scaling Model
 
@@ -45,7 +49,7 @@ Shared services (Auth, Global, Armory, Wiki) are stateless where possible and sc
 
 **Realm-based:** Add new realm deployments. Each is independent. No shared realm state.
 
-**Database:** Connection pooling, read replicas for heavy query paths. Per-realm DBs avoid cross-realm contention.
+**Database:** Connection pooling, read replicas for heavy query paths. Per-realm DBs avoid cross-realm contention. For layer merge and warmup-driven scaling, see [Diagrams](diagrams.md) (layer-merge-remove-pod, metrics-warmup-scaling).
 
 ## What This Enables
 
@@ -65,4 +69,4 @@ The system is built from **shared packages** consumed by multiple services:
 - Centralized logging for observability
 - Shared API client and tooling
 
-This reduces duplication, enforces consistency, and makes it clear which code owns what.
+This reduces duplication, enforces consistency, and makes it clear which code owns what. For the same component view from an authority/simulation perspective, see [Architecture](architecture.md#extracted-components).
