@@ -1,6 +1,23 @@
 # Current State
 
-**Related docs:** [Architecture](architecture.md) (service layout, authority/simulation) · [Infrastructure](infrastructure.md) (stack, databases, scaling) · [Current Work](current-work.md) (explorations and recent decisions) · [README](README.md) (scope and design focus)
+**Related docs:** [Architecture](architecture.md) (service layout, authority/simulation) · [Infrastructure](infrastructure.md) (stack, databases, scaling) · [Current Work](current-work.md) (explorations and recent decisions) · [README](README.md) (scope and design focus) · [For Sponsors](sponsor.md)
+
+---
+
+## By the Numbers
+
+| Metric | Value |
+|--------|--------|
+| TypeScript/TSX lines of code | ~270,000 |
+| TypeScript/TSX files | ~3,000 |
+| Backend services | 10+ |
+| Shared domain packages | 4 (combat engine, movement engine, gRPC contracts, logging) |
+| PostgreSQL roles | 5+ (Auth, Global, Realm per realm, Armory, Image-Server) |
+| Technology & game-design explorations | 21 |
+| Sequence diagrams | 11 |
+| Documented decisions | 2 |
+
+Numbers are generated from the project repository (codebase and this documentation). **This section is the single source for these metrics** — other docs link here. One-page summary: [For Sponsors](sponsor.md). The codebase is not public. For milestones and timeline, see [Current Work](current-work.md#milestones).
 
 ---
 

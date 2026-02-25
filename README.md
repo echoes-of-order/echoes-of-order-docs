@@ -2,7 +2,7 @@
 
 A **systems-driven, persistent online world** — authority, simulation, and long-term consistency first.
 
-**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md)
+**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md) · [For Sponsors](sponsor.md)
 
 ---
 
@@ -124,6 +124,8 @@ At present:
 - The game is **not yet publicly playable**
 - Visuals, content, and player-facing features are secondary at this stage
 
+**By the numbers:** [Current State](game-status.md#by-the-numbers).
+
 ---
 
 ## What This Game Is Not
@@ -154,6 +156,12 @@ The goal is not to be bigger — but to be **coherent**.
 
 ---
 
+## Why Support Echoes of Order?
+
+This project is **authority-first, transparent, and independent**: decisions and explorations are published, there are no investors or deadlines pushing shortcuts, and the work is documented so it stays useful over time. If you want to support that direction, see [For Sponsors](sponsor.md) for how to contribute and what your support enables.
+
+---
+
 ## Status
 
 Echoes of Order is an active, long-term **solo project**. No team. No investors.
@@ -161,6 +169,8 @@ Echoes of Order is an active, long-term **solo project**. No team. No investors.
 The architecture is real. The systems are evolving. The game itself is still becoming.
 
 **No promises** of timelines or features. Only a commitment to correctness, clarity, and transparency. Important decisions are documented and made available.
+
+**Support this work:** [For Sponsors](sponsor.md). **Follow updates:** [Current Work](current-work.md) and [Explorations](explorations/README.md); social and community links: [For Sponsors](sponsor.md#how-to-follow-updates).
 
 ---
 
@@ -172,12 +182,15 @@ The architecture is real. The systems are evolving. The game itself is still bec
 | [Infrastructure](infrastructure.md) | Kubernetes (k3s), Helm, Traefik, database layout (Auth/Global/Realm), realm isolation, scaling model. Complements [Architecture](architecture.md) with deployment and operations. |
 | [Current State](game-status.md) | What exists today (services, infra, domain engines) and what does not (gameplay, content). Honest assessment of the current phase. |
 | [Current Work](current-work.md) | Active technology and game-design explorations, accepted/rejected decisions, status at a glance. Links to related docs and to full write-ups. |
-| [Explorations](explorations/README.md) | Full exploration documents (active, accepted, on-hold, rejected). One document per exploration; some are in German. |
+| [Explorations](explorations/README.md) | Full exploration documents (active, accepted, on-hold, rejected). One document per exploration; all in English. |
 | [Diagrams](diagrams.md) | Index of all sequence diagrams (login, reconnect, layer migration, Event Bus, warmup, dungeon flow, etc.) with short descriptions and where they are referenced. |
 | [Project Goals](project.md) | Design goals (authority first, simulation as a service, persistence, scalability) and who this project is for. |
 | [About the Developer](about-me.md) | Who builds this, background, transparency commitment. |
+| [For Sponsors](sponsor.md) | One-page summary: numbers, why support, how to support, how to follow. |
 
 Full exploration write-ups are in [Explorations](explorations/README.md). Decision records (context, rationale, trade-offs) live in the project repository under `docs/3_decisions`.
+
+*Maintainability:* Metrics and "what exists" only in [Current State](game-status.md). Milestones only in [Current Work](current-work.md). Support and community links only in [For Sponsors](sponsor.md). Profile/developer links only in [About the Developer](about-me.md). Update those files to avoid duplication.
 
 ---
 
@@ -187,7 +200,7 @@ Full exploration write-ups are in [Explorations](explorations/README.md). Decisi
 |------|--------|
 | **Realm** | An isolated, authoritative instance of the game world with its own database, event stream, and simulation workers. No cross-realm state. |
 | **Authority / Realm Authority** | The single source of truth per realm. Validates all changes; simulations propose, authority commits. |
-| **Simulation** | Non-authoritative service that runs combat, NPC behaviour, movement, or local world logic. Replaceable at any time; never owns state. |
+| **Simulation** | Non-authoritative service that runs combat, NPC behavior, movement, or local world logic. Replaceable at any time; never owns state. |
 | **Event Bus** | Pub/sub messaging (e.g. NATS/JetStream) between Realm Core and Realm Simulations. No direct Realm ↔ Simulation calls. |
 | **Layer** | A logical shard of a zone (e.g. to cap players per instance). One simulation per layer; layers can be merged or scaled. |
 | **Realm Core** | The service that embodies realm authority: attaches sessions, talks to simulations via gRPC and Event Bus, persists state. |

@@ -1,6 +1,6 @@
 # About the Developer
 
-**Related docs:** [Project Goals](project.md) (what is being built and why) · [README](README.md) (project overview) · [Current Work](current-work.md) (transparency on explorations and decisions)
+**Related docs:** [Project Goals](project.md) (what is being built and why) · [README](README.md) (project overview) · [Current Work](current-work.md) (transparency on explorations and decisions) · [For Sponsors](sponsor.md)
 
 ---
 
@@ -12,7 +12,7 @@
 
 I love World of Warcraft. But I miss the depth: authority, persistence, and consequences that actually matter. My game is oriented towards WoW — the feel, the structure, the world — while exploring what happens when those technical foundations are taken seriously.
 
-Echoes of Order is a **solo project** — no team, no investors. I develop it in my spare time. It is a long-term attempt to apply enterprise-grade architecture to a problem that usually gets shortchanged: the persistence and coherence of a game world.
+Echoes of Order is a **solo project** — no team, no investors. I develop it in my spare time. It is a long-term attempt to apply enterprise-grade architecture to a problem that usually gets shortchanged: the persistence and coherence of a game world. The project and its documentation are maintained so that code and decisions remain available even if the pace of development changes.
 
 ## Why I'm Building This
 
@@ -29,6 +29,10 @@ Not as a demo. Not as a prototype. As a foundation that can hold the weight of a
 - **Check24:** 7+ years building and scaling travel platforms — critical systems under load
 - **Own companies:** Full software solutions from the ground up
 - **Award:** Winner of the Leipzig Coding Contest 2011
+
+**Links**
+
+- **Profile:** [LinkedIn](https://www.linkedin.com/in/andré-jens-meyer-1884ab348)
 
 **Technical skills**
 

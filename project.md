@@ -54,3 +54,7 @@ This project is for people who care about:
 - Games as engineering problems worth solving well
 
 If that resonates, you're in the right place.
+
+## Why Support Echoes of Order?
+
+Echoes of Order is **authority-first, transparent, and independent**: architectural decisions and explorations are published, there are no investors or deadlines pushing shortcuts, and the work is documented so it remains useful over time. Support helps keep the project independent and the documentation alive. For how to support and what your support enables, see [For Sponsors](sponsor.md).

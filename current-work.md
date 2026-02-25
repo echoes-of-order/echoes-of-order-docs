@@ -10,6 +10,28 @@ Explorations follow a structured process: research, analysis, decision (accept/r
 
 ---
 
+## Milestones
+
+- **gRPC Character Service:** decided and implemented (2024-12).
+- **Kubernetes migration:** decided and implemented (2026-01).
+- **Quest design (Morrowind-inspired):** accepted as design direction (2026-01).
+
+No fixed project start date or release timeline — only a commitment to correctness and transparency. For what we're focusing on next, see [Current Focus](#current-focus) below.
+
+---
+
+## Current Focus
+
+Direction for the next phase (no fixed dates):
+
+- **Event Bus rollout** — NATS/JetStream as messaging backbone for Realm Core and Simulations.
+- **Zone Architecture** — WoW-style zones, layering, warmup; implementation of accepted world/realm/zone model.
+- **First playable loop** — gameplay on top of the existing authority and simulation foundation, when the above is in place.
+
+Details in the tables below and in [Explorations](explorations/README.md).
+
+---
+
 ## Active Technology Explorations
 
 | Exploration | Summary | Focus |
