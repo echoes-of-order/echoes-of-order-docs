@@ -1,0 +1,32 @@
+name: Design Decision
+description: Propose or document a concrete design decision
+title: "[Design] "
+labels: ["design-decision"]
+body:
+  - type: textarea
+    attributes:
+      label: Context
+      description: What problem or decision needs to be addressed?
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Constraints
+      description: Known limitations, goals or non-goals.
+    validations:
+      required: true
+
+  - type: textarea
+    attributes:
+      label: Options
+      description: Possible approaches or alternatives.
+    validations:
+      required: false
+
+  - type: textarea
+    attributes:
+      label: Decision
+      description: Final decision and reasoning (to be filled when closing).
+    validations:
+      required: false
