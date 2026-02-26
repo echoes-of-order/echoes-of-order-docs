@@ -1,5 +1,7 @@
 # Echoes of Order
 
+![Echoes of Order](images/1290x640.jpg)
+
 A **systems-driven, persistent online world** — authority, simulation, and long-term consistency first.
 
 **Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md) · [For Sponsors](sponsor.md)
