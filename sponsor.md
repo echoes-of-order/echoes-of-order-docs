@@ -41,7 +41,7 @@ Support helps keep the project **independent and transparent**:
 - Continued documentation of architecture and trade-offs
 - No pressure to cut corners for investors or deadlines
 
-If you want to support this work: **[GitHub Sponsors](https://github.com/sponsors/echoes-of-order)** or **[Ko-fi](https://ko-fi.com/echoesoforder)**. For recurring donations from many regions and currencies, **[Liberapay](https://liberapay.com/)** is an option (project page may be added there).
+If you want to support this work: **[Patreon](https://www.patreon.com/c/EchoesOfOrder)**, **[GitHub Sponsors](https://github.com/sponsors/echoes-of-order)**, or **[Ko-fi](https://ko-fi.com/echoesoforder)**. For recurring donations from many regions and currencies, **[Liberapay](https://liberapay.com/)** is an option (project page may be added there).
 
 *Global community:* These platforms are available in many regions; some country restrictions apply. This documentation is the platform-neutral source of truth and works everywhere.
 
