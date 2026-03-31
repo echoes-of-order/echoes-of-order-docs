@@ -1,60 +1,48 @@
 # Project Goals & Approach
 
-**Related docs:** [README](README.md) (what the project is, core idea) · [Architecture](architecture.md) (authority, simulation, realm model) · [Infrastructure](infrastructure.md) (scaling, isolation) · [Current Work](current-work.md) (explorations and decisions)
-
----
+**Related docs:** [README](README.md) · [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current Work](current-work.md)
 
 ## What I'm Building Toward
 
-Echoes of Order aims to demonstrate that large-scale, persistent game worlds can be
-architected as **distributed systems** — where authority is explicit, state is consistent,
-and the infrastructure itself is part of the design.
+Can a persistent game world be a **distributed system on purpose** — authority explicit, state consistent, infra treated as creative constraint? Echoes of Order is that experiment.
 
 ## Design Goals
 
-**Authority first.** The realm owns the world. Nothing escapes its validation. See [Architecture](architecture.md#authority--simulation) and [Architecture](architecture.md#realm-model).
+**Authority first.** The realm owns commits. See [Architecture](architecture.md#authority--simulation) and [Architecture](architecture.md#realm-model).
 
-**Simulation as a service.** Combat, NPC logic, and movement run as replaceable simulations
-that propose outcomes. The authority accepts or rejects them. The service layout and communication (gRPC, Event Bus) are in [Architecture](architecture.md#service-layout) and [Architecture](architecture.md#communication).
+**Simulation as a service.** Combat, NPC logic, and movement run as workers that **propose** outcomes; authority accepts or rejects. Wiring detail: [Architecture](architecture.md#service-layout), [Architecture](architecture.md#communication).
 
-**Persistence by default.** There is no "soft reset." What happens in the world stays
-in the world.
+**Persistence by default.** No soft-reset design philosophy. What happens in a realm stays there unless the **rules** say otherwise.
 
-**Scalability through isolation.** Each realm is independent. New realms can be added
-without rewriting the core. Failures are contained.
+**Scalability through isolation.** New realms add capacity without rewriting the core. Blast radius stays small.
 
 ## How I Got Here
 
-The project started with a question: *What if I treat the game world like a database?*
+The starting question was crude: *What if the world is closer to a database than a stage?*
 
-Not as a stage for scripts, but as a coherent system of state, events, and rules.
-That led to:
+That pushed me toward:
 
-- Separating authority from simulation
-- Designing realms as first-class boundaries
-- Building infrastructure (Kubernetes, gRPC, event systems) before content
+- Splitting authority from simulation
+- Making realms hard boundaries early
+- Standing up Kubernetes, gRPC, and messaging **before** chasing content milestones
 
-The result is a codebase focused on **structural integrity** — so that if and when
-gameplay and content arrive, they rest on a solid foundation.
+The payoff is a tree of services and packages where gameplay can land later without rewriting the substrate.
 
 **Modular construction**
 
-Domain logic is extracted into reusable packages: combat resolution, movement and
-positioning, typed service contracts (gRPC), shared logging. Services consume these
-libraries rather than duplicating logic. This keeps the authority boundary clean and
-allows each piece to be tested and evolved independently. Details: [Architecture](architecture.md#extracted-components), [Infrastructure](infrastructure.md#component-model).
+Combat, movement, gRPC contracts, and logging live in **shared packages**; apps consume them instead of duplicating domain math. That keeps the authority boundary legible and testable. Map: [Architecture](architecture.md#extracted-components), [Infrastructure](infrastructure.md#component-model).
 
 ## Who This Is For
 
-This project is for people who care about:
+You might care about this project if you like:
 
-- Distributed systems and consistency
-- Long-lived, persistent worlds
-- Architecture that refuses to cut corners
-- Games as engineering problems worth solving well
+- Distributed consistency problems
+- Worlds that outlive a single patch
+- Architecture that refuses lazy shortcuts
+- Games as **engineering** terrain
 
-If that resonates, you're in the right place.
+If that list fits, you are in the right folder.
 
-## Why Support Echoes of Order?
+## Support
 
-Echoes of Order is **authority-first, transparent, and independent**: architectural decisions and explorations are published, there are no investors or deadlines pushing shortcuts, and the work is documented so it remains useful over time. Support helps keep the project independent and the documentation alive. For how to support and what your support enables, see [For Sponsors](sponsor.md).
+Funding and operating stance (solo, transparent, independent): **[For Sponsors](sponsor.md)**.

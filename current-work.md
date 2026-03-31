@@ -1,42 +1,38 @@
 # Current Work & Explorations
 
-This document lists what is being actively explored and recently decided. It gives sponsors a transparent view of where effort goes. No timelines — only status and focus.
+Snapshot of **active and recent** technology and design threads. Intent: sponsors and engineers see **where time goes** without pretending there is a fixed shipping calendar.
 
-Explorations follow a structured process: research, analysis, decision (accept/reject/on-hold). **Full exploration write-ups** are in [Explorations](explorations/README.md). Decision records (context, rationale, trade-offs) live in the project repository under `docs/3_decisions`.
+Process: research → write-up → accept, reject, or park. Longer public summaries: [Explorations](explorations/README.md). Shipped narratives: [Devlogs](devlogs/README.md). Formal decision context: main repo `docs/3_decisions`.
 
-**Related docs:** [Architecture](architecture.md) (authority, realm model, service layout) · [Infrastructure](infrastructure.md) (stack, scaling, realm isolation) · [Current State](game-status.md) (what exists today) · [Explorations](explorations/README.md) (full write-ups) · [Diagrams](diagrams.md) (sequence diagrams for flows)
+**Related docs:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Explorations](explorations/README.md) · [Devlogs](devlogs/README.md) · [Diagrams](diagrams.md)
 
-**Status at a glance:** 14 active technology explorations, 2 active game design explorations, 2 accepted (Kubernetes migration, Quest design), 1 on hold (Automated API testing). Rejected explorations: [Explorations → Rejected](explorations/README.md#rejected).
-
----
+**At a glance:** 14 active technology explorations, 2 active game-design threads, 2 accepted directions (Kubernetes path, quest design), 1 on hold (automated API testing). Rejected list: [Explorations → Rejected](explorations/README.md#rejected).
 
 ## Milestones
 
-- **gRPC Character Service:** decided and implemented (2024-12).
-- **Kubernetes migration:** decided and implemented (2026-01).
-- **Quest design (Morrowind-inspired):** accepted as design direction (2026-01).
+- **gRPC Character Service:** shipped (2024-12).
+- **Kubernetes migration:** shipped (2026-01).
+- **Quest design (Morrowind-inspired):** accepted direction (2026-01).
+- **Envoy Gateway + Gateway API:** edge HTTPS routing shipped; Traefik/Ingress retired (2026-03). [Devlog #2](devlogs/2026-03-devlog-02-traefik-envoy-gateway-migration.md).
+- **SSO web app + PKCE:** central login surface and authorization code flow for clients (2026-03). [Devlog #3](devlogs/2026-03-devlog-03-sso-pkce-migration.md).
 
-No fixed project start date or release timeline — only a commitment to correctness and transparency. For what we're focusing on next, see [Current Focus](#current-focus) below.
-
----
+No public “we launch on …” dates — see [Current Focus](#current-focus) for emphasis.
 
 ## Current Focus
 
-Direction for the next phase (no fixed dates):
+Next emphasis (unordered, **no** promised dates):
 
-- **Event Bus rollout** — NATS/JetStream as messaging backbone for Realm Core and Simulations.
-- **Zone Architecture** — WoW-style zones, layering, warmup; implementation of accepted world/realm/zone model.
-- **First playable loop** — gameplay on top of the existing authority and simulation foundation, when the above is in place.
+- **Event Bus** — NATS/JetStream between Realm Core and simulations.
+- **Zone architecture** — WoW-style zones, layering, warmup on top of the accepted world/realm model.
+- **First playable loop** — only after the two above settle on production-shaped wiring.
 
-Details in the tables below and in [Explorations](explorations/README.md).
-
----
+Tables below + [Explorations](explorations/README.md) carry detail.
 
 ## Active Technology Explorations
 
 | Exploration | Summary | Focus |
 |-------------|---------|-------|
-| **Event Bus Architecture** | NATS/JetStream as messaging backbone for Realm Core, Simulations, and Armory. Decouples components; no direct Realm ↔ Simulation communication. | Loose coupling, low latency, optional persistence |
+| **Event Bus Architecture** | NATS/JetStream backbone for Realm Core, Simulations, Armory. Decouples components; no direct Realm ↔ Simulation calls. | Loose coupling, low latency, optional persistence |
 | **World / Realm / Zone Architecture** | WoW-style model: no server meshing. One zone = one simulation per layer. Realm = logical unit of truth; simulations are replaceable. | Stability, social density, operational simplicity |
 | **WoW-Style Zone Architecture** | From grid-based to true zone simulations. Zone transitions, cities, instances. Technical implementation paths. | Zone boundaries, layering, warmup |
 | **Event Sourcing + CQRS** | Event history instead of state overwrite. Commands vs. queries. Audit trail, cheat detection, scalable read models. | Game-state management, combat/inventory consistency |
@@ -51,9 +47,7 @@ Details in the tables below and in [Explorations](explorations/README.md).
 | **SSH Key Management & Security** | Ed25519, certificate-based SSH, Teleport/Vault patterns. | Infra access, audit, rotation |
 | **WebAssembly Combat Performance** | Evaluating WASM for combat resolution performance. | Hot path optimization |
 
-**Context:** Event Bus and Zone Architecture tie directly into [Architecture](architecture.md#communication) (Realm Core ↔ Simulation via pub/sub) and [Infrastructure](infrastructure.md#realm-isolation) (per-realm Event Bus). See [Diagrams](diagrams.md) for sequence flows (world events, layer migration, warmup/scaling). Observability and scaling (OpenTelemetry, Player Count Telemetry, Bare-Metal Scheduling) support the model described in [Infrastructure](infrastructure.md#scaling-model) and [Architecture](architecture.md#service-layout).
-
----
+**Context:** Event Bus + zone work tie to [Architecture](architecture.md#communication) and [Infrastructure](infrastructure.md#realm-isolation). Sequences: [Diagrams](diagrams.md) (world events, layer migration, warmup). Observability rows align with [Infrastructure](infrastructure.md#scaling-model) and [Architecture](architecture.md#service-layout).
 
 ## Active Game Design Explorations
 
@@ -62,51 +56,42 @@ Details in the tables below and in [Explorations](explorations/README.md).
 | **Custom Spell Creation (Morrowind-Inspired)** | Optional ability creation for enthusiasts. Gold for creation, resources for use. Instability risk for strong abilities. | Depth without forcing complexity |
 | **Tutorial Design (MMO Principles)** | Josh Strife Hays' four principles. Hidden tutorials, competence over completion. | Onboarding without hand-holding |
 
-**Context:** Game design explorations feed into the target player experience described in the [main README](README.md#player-experience-target-state) and [Project Goals](project.md). Current playable state is summarised in [Current State](game-status.md).
-
----
+**Context:** Targets player experience sketched in [README](README.md#player-experience-target-state) and [Project Goals](project.md). Honest “what runs today”: [Current State](game-status.md).
 
 ## Accepted (Recently Decided)
 
 | Exploration | Outcome |
 |-------------|---------|
-| **Kubernetes vs. Docker Compose** | Kubernetes chosen. Migration completed. Multi-realm management, scaling, and production-readiness require K8s. |
-| **Quest Design (Morrowind-Inspired)** | Accepted as design direction. Story-driven quests, long texts, multiple paths, consequences. Short summaries for action-focused players. Implementation to follow. |
+| **Kubernetes vs. Docker Compose** | Kubernetes chosen; migration done. Multi-realm ops and scaling drove the call. |
+| **Quest Design (Morrowind-Inspired)** | Accepted as design direction. Long text, branching, consequences; short summaries for players who skip lore. Implementation TBD. |
 
-**Context:** Kubernetes migration is reflected in [Infrastructure](infrastructure.md) and [Current State](game-status.md). Quest design aligns with the persistent, consequential world in [README](README.md#core-idea).
-
----
+**Context:** Infra reality: [Infrastructure](infrastructure.md), [Current State](game-status.md). Quest stance matches persistence framing in [README](README.md#core-idea).
 
 ## On Hold
 
 | Exploration | Reason |
 |-------------|--------|
-| **Automated API Testing** | Deferred. Other infrastructure work prioritised. |
-
----
+| **Automated API Testing** | Deferred while other infrastructure work stayed hotter. |
 
 ## Rejected
 
-Rejected explorations are listed in [Explorations → Rejected](explorations/README.md#rejected) with full write-ups (reasons and lessons learned). Example: [GraphQL subscriptions vs. Colyseus](explorations/rejected/technology/2025-01-graphql-subscriptions-vs-colyseus.md) (rejected in favour of the current WebSocket/Event Bus approach). The current communication model is described in [Architecture](architecture.md#communication).
-
----
+[Index + rationale](explorations/README.md#rejected). Example: [GraphQL subscriptions vs. Colyseus](explorations/rejected/technology/2025-01-graphql-subscriptions-vs-colyseus.md) (WebSocket/Event Bus model won). Live communication picture: [Architecture](architecture.md#communication).
 
 ## Key Past Decisions
 
 | Decision | Outcome | When |
 |----------|---------|------|
-| **Kubernetes Migration** | k3s, Helm, phased migration. Implemented. | 2026-01 |
-| **gRPC for Character Service** | Typed contracts for service-to-service. Implemented. | 2024-12 |
+| **Envoy Gateway / Gateway API** | Edge ingress; HTTPRoutes; cert-manager TLS. Done. | 2026-03 |
+| **Kubernetes Migration** | k3s, Helm, phased cutover. Done. | 2026-01 |
+| **gRPC for Character Service** | Typed service contracts. Done. | 2024-12 |
 
-Full decision records (context, rationale, trade-offs) are in the project repository under `docs/3_decisions/`. The Kubernetes migration decision directly underpins [Infrastructure](infrastructure.md); the gRPC decision is reflected in [Architecture](architecture.md#communication) and the service layout.
-
----
+ADR-style depth: `docs/3_decisions/` in the main repository. k8s choice backs [Infrastructure](infrastructure.md); gRPC shows up in [Architecture](architecture.md#communication).
 
 ## Format & Process
 
-- **Active:** Under evaluation. No decision yet.
-- **Accepted:** Decided in favour. Implementation planned or in progress.
-- **On Hold:** Paused. May be revisited later.
-- **Rejected:** Explicitly declined with documented reasoning.
+- **Active:** Still evaluating.
+- **Accepted:** Direction chosen; implementation ongoing or planned.
+- **On Hold:** Intentionally paused.
+- **Rejected:** Documented no with reasons.
 
-New explorations are added as markdown files with frontmatter (description, status, tags). Decisions are documented with context and date.
+New files here use frontmatter (description, status, tags) when mirrored from internal explorations.

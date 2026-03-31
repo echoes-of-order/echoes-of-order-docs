@@ -2,38 +2,35 @@
 
 **Related docs:** [Architecture](architecture.md) (service layout, authority/simulation) · [Infrastructure](infrastructure.md) (stack, databases, scaling) · [Current Work](current-work.md) (explorations and recent decisions) · [README](README.md) (scope and design focus) · [For Sponsors](sponsor.md)
 
----
-
 ## By the Numbers
 
 | Metric | Value |
 |--------|--------|
-| TypeScript/TSX lines of code | ~270,000 |
-| TypeScript/TSX files | ~3,000 |
-| Backend services | 10+ |
+| TypeScript/TSX lines of code | ~121,000 |
+| TypeScript/TSX files | ~3,200 |
+| Deployed workloads (Helm chart) | 15+ |
 | Shared domain packages | 4 (combat engine, movement engine, gRPC contracts, logging) |
-| PostgreSQL roles | 5+ (Auth, Global, Realm per realm, Armory, Image-Server) |
+| PostgreSQL roles | 6+ (Auth, Global, Realm per realm, Armory, Image-Server, World-Authoring) |
 | Technology & game-design explorations | 21 |
 | Sequence diagrams | 11 |
-| Documented decisions | 2 |
+| Documented decisions | 3 |
 
-Numbers are generated from the project repository (codebase and this documentation). **This section is the single source for these metrics** — other docs link here. One-page summary: [For Sponsors](sponsor.md). The codebase is not public. For milestones and timeline, see [Current Work](current-work.md#milestones).
-
----
+Numbers are derived from the project repository and this documentation set. TypeScript metrics are **approximate** (tracked `.ts` / `.tsx` via git; excludes most `node_modules`). **This section is the single source for these headline metrics** — other docs link here. One-page summary: [For Sponsors](sponsor.md). The codebase is not public. For milestones and timeline, see [Current Work](current-work.md#milestones).
 
 ## What Exists
 
 **Infrastructure**
 
 - Kubernetes deployment (Helm charts, k3s for local dev). See [Infrastructure](infrastructure.md#stack) and [Infrastructure](infrastructure.md#realm-isolation).
-- Traefik ingress, TLS, service routing
+- Envoy Gateway (Gateway API), HTTPS-only edge listener, cert-manager TLS, HTTPRoutes per host/service
 - Separate PostgreSQL instances: auth, global, realm, armory, image-server. See [Infrastructure](infrastructure.md#database-layout).
 - Redis for sessions and caching
 
 **Services**
 
-- **Auth Backend:** Account lookup, JWT sessions
-- **Realm Gateway:** Authenticated routing, server/control panel config
+- **Auth Backend:** Identity and OAuth-style flows (e.g. PKCE authorization code); issues and validates tokens for gateways and tools
+- **SSO Frontend:** Central React login/registration surface for interactive auth (replaces duplicated login UIs)
+- **Realm Gateway:** Authenticated routing, server/control panel config, gameplay WebSocket
 - **Global-Backend:** World data, realm/character metadata, desired state apply to Realm Core
 - **Realm Core:** Authority, attach player sessions, gRPC to simulations
 - **Realm Simulation:** Zones, Instances, Warmup — non-authoritative, Event Bus
@@ -41,14 +38,18 @@ Numbers are generated from the project repository (codebase and this documentati
 - **Armory:** Client, Indexer, Backend — character/item/progress events to Auth DB
 - **Wiki:** Client, Backend, Documentation Exporter — persist + search via Realm-DB
 - **Image-Server:** Media and asset handling
-- **Observability:** Elastic/Kibana, Grafana, Prometheus (traces, logs, metrics)
+- **Tech-Admin:** Operator UI (Kubernetes, Gateway API resources, diagnostics)
+- **World Authoring:** Browser app + API backend for lore/authoring (own database)
+- **Frontends:** Landing site, game UI (dev-facing shells), classic **Admin** UI where still deployed
+- **Supporting:** Container **registry**, **Mailpit** (dev mail), **Elastic APM** server alongside observability stack
+- **Observability:** Elasticsearch/Kibana, Grafana, Prometheus (logs, metrics; tracing as configured)
 
 Service roles and data flow are described in [Architecture](architecture.md#service-layout) and [Architecture](architecture.md#communication).
 
 **Architecture**
 
 - gRPC and pub/sub (Event Bus) for Realm Core ↔ Realm Simulation
-- Auth DB, Global-DB, Realm-DB (Master + Replicas)
+- Auth DB, Global-DB, Realm-DB, Image-Server DB, World-Authoring DB (Master + Replicas where deployed)
 - Kubernetes control plane for desired state apply
 
 **Extracted domain logic**

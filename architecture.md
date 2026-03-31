@@ -4,8 +4,6 @@
 
 The system is built around **realm authority** (single source of truth per realm) and **replaceable simulations** (combat, movement, NPCs) that propose outcomes but never own state. Realms are isolated; shared services (Auth, Global-Backend, Armory, Image-Server) provide identity and static data. Communication is HTTP/gRPC for request/response and an Event Bus for Realm Core ↔ Simulation. Below: authority vs. simulation, realm model, service layout, and extracted components.
 
----
-
 ## Authority & Simulation
 
 The architecture is built around a clear separation:
@@ -54,12 +52,12 @@ This isolation enables:
 
 ## Service Layout
 
-**Main flow: Ingress → Clients → Auth → Realm Gateway → Global-Backend → Realm Core**
+**Main flow: Edge (Envoy Gateway) → Clients → Auth → Realm Gateway → Global-Backend → Realm Core**
 
 ```mermaid
 flowchart TB
-    subgraph ingress[Ingress Layer]
-        ing[Ingress Controller]
+    subgraph ingress[Edge / Gateway API]
+        ing[Envoy Gateway]
     end
     subgraph clients[Client Layer]
         web[Web Application]
@@ -163,7 +161,7 @@ flowchart TB
 ## Communication
 
 - **Synchronous (HTTP/gRPC):** Service-to-service calls. Auth, Realm Gateway, Global-Backend, Realm Core, World Event Backend. See [Current Work](current-work.md) for gRPC Character Service decision and Event Bus exploration.
-- **Persistence (SQL):** Auth DB, Global-DB, Realm-DB. Account lookup, world data, character/item/progress events. See [Infrastructure](infrastructure.md#database-layout).
+- **Persistence (SQL):** Auth DB, Global-DB, Realm-DB, Image-Server DB, World-Authoring DB. Account lookup, world data, character/item/progress events, assets, authoring data. See [Infrastructure](infrastructure.md#database-layout).
 - **Pub/sub (Event Bus):** Realm Core ↔ Realm Simulation. gRPC messages, world state, desired state apply. Event Bus flow is illustrated in [Diagrams](diagrams.md) (sequence-world-event-eventbus).
 
 ## Event & State Flow

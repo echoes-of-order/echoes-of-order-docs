@@ -2,208 +2,119 @@
 
 ![Echoes of Order](images/1290x640.jpg)
 
-A **systems-driven, persistent online world** — authority, simulation, and long-term consistency first.
+Persistent world, **explicit authority**, replaceable simulations — long-term state before spectacle.
 
-**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md) · [For Sponsors](sponsor.md)
-
----
+**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Devlogs](devlogs/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md) · [For Sponsors](sponsor.md)
 
 ## Who This Documentation Is For
 
-This documentation is written for **sponsors, technical readers, and anyone** who wants a clear view of what Echoes of Order is, how it is built, and where the project stands. No marketing fluff — decisions, trade-offs, and current state are documented so that reasoning is traceable and transparent.
-
----
+**Sponsors, engineers, and curious readers** who want a straight account of what Echoes of Order is, how it is wired, and what actually ships today. The docs favor trade-offs and pointers into the codebase over pitch decks.
 
 ## How to Read This Documentation
 
-- **New to the project?** Start with this README, then [Architecture](architecture.md) (how the world is owned and how simulations work), then [Current State](game-status.md) (what exists today).
-- **Interested in operations and deployment?** [Infrastructure](infrastructure.md) and [Diagrams](diagrams.md) (sequence flows).
-- **Want to see what’s being explored or decided?** [Current Work](current-work.md). Full exploration write-ups are in [Explorations](explorations/README.md). Decision records (context, rationale) live in the project repository under `docs/3_decisions`.
-
----
+- **New here?** This README, then [Architecture](architecture.md) (who owns state, how simulations attach), then [Current State](game-status.md) (inventory of what runs).
+- **Ops and deployment?** [Infrastructure](infrastructure.md) and [Diagrams](diagrams.md) for flows.
+- **Explorations and decisions?** [Current Work](current-work.md) for status; deeper summaries in [Explorations](explorations/README.md). Formal ADR-style material lives in the main repository under `docs/3_decisions`.
+- **Shipped work in prose?** [Devlogs](devlogs/README.md) (migration stories, product-sized auth changes, etc.).
 
 ## What This Project Is
 
-Echoes of Order is a **systems-driven, persistent online world** with a strong focus on
-**authority, simulation, and long-term world consistency**.
+Echoes of Order is a **systems-driven MMO-shaped world**: rules and state first, not hand-scripted ride queues. The stack is treated as part of the design — realms isolate data, simulations stay swappable, and **correctness** matters more than early polish.
 
-It is not designed as a fast-paced action game or a content-driven theme park.
-Instead, it explores how large-scale game worlds can be built as **distributed systems**
-where rules, state, and consequences matter.
-
-The project deliberately prioritizes **architecture and correctness** over early gameplay polish.
-
----
+It is **not** a seasonal reset treadmill or a content-only theme park.
 
 ## What Kind of Game Is Echoes of Order?
 
-**Genre & format.** Echoes of Order is a **persistent online world** in the tradition of MMO-style games: you play as one or more **persistent characters** in a shared, living world. It is **systems-driven**, not a story-led single-player RPG or a content treadmill. The world is built from rules, state, and simulation — not from scripted set pieces.
+**Format.** You play **persistent characters** in a shared world. Systems (combat, NPCs, simulation workers) generate outcomes; the world keeps history instead of rewinding per session.
 
-**How it is meant to be played.** You inhabit a realm with your character. Actions — combat, exploration, interaction with NPCs and systems — have **lasting effects**. The world does not reset for you; it keeps a consistent history. Progression is intended to feel **emergent**: outcomes arise from how you interact with the world and its systems, not from following a fixed quest line. The focus is on a world that **reacts and persists**, not on short sessions or disposable content.
+**Play style.** You **inhabit a realm**. Combat, exploration, and tooling interactions are meant to leave traces — not flip back to a lobby state. Progression should feel **emergent** from those systems rather than from a single critical path.
 
-**Atmosphere & tone.** The game aims for a **coherent, consequential world**: a place that exists with its own logic and history. In atmosphere and tone it is intended to sit in the same space as **World of Warcraft** — a living fantasy world that feels consistent, explorable, and consequential. The tone is oriented toward weight and continuity — what you do matters to the world state and to your character over time. It is not a fast-paced arcade experience or a casual drop-in game; it is built for players who want to exist in a world that **remembers** and where **structure and consistency** are part of the experience.
-
----
+**Tone.** Think **weight and continuity**: a world with its own logic, closer to the sustained fantasy of **World of Warcraft** than to arcade drop-in sessions. Not “fast filler MMO” — built for players who care that the stack **remembers**.
 
 ## Core Idea
 
-The world of Echoes of Order is persistent.
+Persistence is non-negotiable. Player, NPC, and system actions feed **history** and later state; they are not quietly discarded for convenience.
 
-Actions taken by players, NPCs, and systems are not reset, instanced away, or discarded.
-They become part of the world's history and influence future states.
-
-The game is built around three central ideas:
+Three anchors:
 
 - **Authoritative world state**
 - **Deterministic simulation**
-- **Consequences that persist beyond a single session**
-
----
+- **Consequences that outlive one login**
 
 ## World & Persistence
 
-The world is divided into **realms**.
-
-Each realm represents a fully authoritative instance of the game world with its own
-history, data, and state.
-
-Within a realm:
-
-- NPCs persist
-- World events leave traces
-- Systems evolve over time
-- Players interact with the same underlying world state
-
-There is no concept of a "reset" world.
-
----
+The world is split into **realms**. Each realm is a full authoritative instance: its own history, data, and live state. Inside a realm, NPCs and events stick around, systems drift forward in time, and players share one underlying world model. There is **no global wipe** design.
 
 ## Simulation Model
 
-Gameplay is driven by **non-authoritative simulations**.
-
-Simulations are responsible for:
-
-- Combat resolution
-- NPC behavior
-- Movement and interactions
-- Localized world logic
-
-However:
-
-- Simulations never own the world state
-- Simulations can be stopped or replaced at any time
-- All final decisions are validated by the realm authority
-
-This separation allows the world to remain consistent even under failure or scaling events.
-
----
+Gameplay logic runs in **non-authoritative simulations** (combat, movement, NPCs, local rules). They **never** own truth. The realm authority validates proposals, swaps workers when needed, and commits. That split is what keeps behavior consistent when pods fail or scale.
 
 ## Player Experience (Target State)
 
-Players inhabit the world as persistent characters.
+Design targets (not promises):
 
-The game is designed so that:
-
-- Actions have lasting effects
-- Systems react to player behavior
-- The world does not exist purely for the player's convenience
-
-Progression is intended to be:
-
-- Systemic, not scripted
-- Emergent, not pre-authored
-- Shaped by interaction rather than checklists
-
----
+- Lasting effects from play
+- Systems that push back instead of bending to convenience
+- Progression that is **systemic**, not checklist-scripted
 
 ## Scope & Current State
 
-At present:
+Today the effort sits on **backend authority, realm isolation, and simulation plumbing**. Core realm/event/simulation pieces exist; a shippable player loop does not. Visuals and mass-market content are **explicitly** behind architecture.
 
-- The project focuses on **backend, world authority, and simulation architecture**
-- Core systems for realms, simulations, events, and persistence exist
-- The game is **not yet publicly playable**
-- Visuals, content, and player-facing features are secondary at this stage
-
-**By the numbers:** [Current State](game-status.md#by-the-numbers).
-
----
+**Metrics:** [Current State](game-status.md#by-the-numbers).
 
 ## What This Game Is Not
 
-Echoes of Order is intentionally **not**:
+- Theme-park MMO built only on authored rides
+- Fast seasonal reset product
+- Short-session arcade loop
+- Demo optimized for influencer clips over structure
 
-- A theme-park MMO
-- A fast-reset seasonal game
-- A short-session arcade experience
-- A prototype optimized for quick content delivery
-
-The project explores a different design space:
-**long-lived systems, slow change, and structural integrity**.
-
----
+The design space here is **slow-moving systems and structural integrity**.
 
 ## Why Build a Game Like This?
 
-Many games hide complexity behind scripts and resets.
+Most titles hide complexity behind resets and scripts. Echoes of Order asks what breaks if you treat the world like a **serious distributed system**: failures, recovery, and scale are design inputs, not post-launch surprises. The goal is **coherence**, not raw size.
 
-Echoes of Order explores what happens when:
+## Support
 
-- The world is treated as a system, not a stage
-- Infrastructure is part of game design
-- Failure, recovery, and scale are first-class concerns
-
-The goal is not to be bigger — but to be **coherent**.
-
----
-
-## Why Support Echoes of Order?
-
-This project is **authority-first, transparent, and independent**: decisions and explorations are published, there are no investors or deadlines pushing shortcuts, and the work is documented so it stays useful over time. If you want to support that direction, see [For Sponsors](sponsor.md) for how to contribute and what your support enables.
-
----
+How the project stays independent, why that matters, and where to donate: **[For Sponsors](sponsor.md#why-this-project-is-run-this-way)**.
 
 ## Status
 
-Echoes of Order is an active, long-term **solo project**. No team. No investors.
+Long-term **solo** project: no studio payroll, no investors pushing quarterly features. The architecture is real; the **playable surface** is still catching up.
 
-The architecture is real. The systems are evolving. The game itself is still becoming.
+No roadmaps for feature X by date Y. Decisions stay written down when they matter.
 
-**No promises** of timelines or features. Only a commitment to correctness, clarity, and transparency. Important decisions are documented and made available.
-
-**Support this work:** [For Sponsors](sponsor.md). **Follow updates:** [Current Work](current-work.md) and [Explorations](explorations/README.md); social and community links: [For Sponsors](sponsor.md#how-to-follow-updates).
-
----
+**Follow:** [Current Work](current-work.md), [Explorations](explorations/README.md), [Devlogs](devlogs/README.md), and the links under [For Sponsors](sponsor.md#how-to-follow-updates).
 
 ## Documentation
 
 | Document | Content |
 |----------|---------|
-| [Architecture](architecture.md) | Authority vs. simulation, realm model, service layout, communication (HTTP/gRPC, Event Bus). Start here for how the world is owned and how simulations propose changes. |
-| [Infrastructure](infrastructure.md) | Kubernetes (k3s), Helm, Traefik, database layout (Auth/Global/Realm), realm isolation, scaling model. Complements [Architecture](architecture.md) with deployment and operations. |
-| [Current State](game-status.md) | What exists today (services, infra, domain engines) and what does not (gameplay, content). Honest assessment of the current phase. |
-| [Current Work](current-work.md) | Active technology and game-design explorations, accepted/rejected decisions, status at a glance. Links to related docs and to full write-ups. |
-| [Explorations](explorations/README.md) | Full exploration documents (active, accepted, on-hold, rejected). One document per exploration; all in English. |
-| [Diagrams](diagrams.md) | Index of all sequence diagrams (login, reconnect, layer migration, Event Bus, warmup, dungeon flow, etc.) with short descriptions and where they are referenced. |
-| [Project Goals](project.md) | Design goals (authority first, simulation as a service, persistence, scalability) and who this project is for. |
-| [About the Developer](about-me.md) | Who builds this, background, transparency commitment. |
-| [For Sponsors](sponsor.md) | One-page summary: numbers, why support, how to support, how to follow. |
+| [Architecture](architecture.md) | Authority vs. simulation, realms, service map, HTTP/gRPC/Event Bus. |
+| [Infrastructure](infrastructure.md) | k3s/Kubernetes, Helm, Envoy Gateway (Gateway API), cert-manager, DB layout, isolation, scaling. |
+| [Current State](game-status.md) | What exists today vs. what does not; numeric snapshot. |
+| [Current Work](current-work.md) | Active explorations, accepted/rejected items, milestones. |
+| [Explorations](explorations/README.md) | Public summaries per topic (English). |
+| [Devlogs](devlogs/README.md) | Narrative write-ups of shipped changes (edge, auth, …). |
+| [Diagrams](diagrams.md) | Sequence diagrams (login, reconnect, layers, Event Bus, …). |
+| [Project Goals](project.md) | Intent, design goals, audience. |
+| [About the Developer](about-me.md) | Builder background and transparency stance. |
+| [For Sponsors](sponsor.md) | Funding, principles, follow links. |
 
-Full exploration write-ups are in [Explorations](explorations/README.md). Decision records (context, rationale, trade-offs) live in the project repository under `docs/3_decisions`.
+Full exploration prose lives in [Explorations](explorations/README.md). Decision records: main repo `docs/3_decisions`.
 
-*Maintainability:* Metrics and "what exists" only in [Current State](game-status.md). Milestones only in [Current Work](current-work.md). Support and community links only in [For Sponsors](sponsor.md). Profile/developer links only in [About the Developer](about-me.md). Update those files to avoid duplication.
-
----
+*Maintainability:* Metrics only in [Current State](game-status.md). Milestone narrative only in [Current Work](current-work.md). Devlog list only in [Devlogs](devlogs/README.md) (add new rows when publishing a devlog). Support/community URLs only in [For Sponsors](sponsor.md). Profile links only in [About the Developer](about-me.md).
 
 ## Key Terms
 
 | Term | Meaning |
 |------|--------|
-| **Realm** | An isolated, authoritative instance of the game world with its own database, event stream, and simulation workers. No cross-realm state. |
-| **Authority / Realm Authority** | The single source of truth per realm. Validates all changes; simulations propose, authority commits. |
-| **Simulation** | Non-authoritative service that runs combat, NPC behavior, movement, or local world logic. Replaceable at any time; never owns state. |
-| **Event Bus** | Pub/sub messaging (e.g. NATS/JetStream) between Realm Core and Realm Simulations. No direct Realm ↔ Simulation calls. |
-| **Layer** | A logical shard of a zone (e.g. to cap players per instance). One simulation per layer; layers can be merged or scaled. |
-| **Realm Core** | The service that embodies realm authority: attaches sessions, talks to simulations via gRPC and Event Bus, persists state. |
-| **Realm Gateway** | Entry point for clients: authenticates, routes to the correct realm, exposes WebSocket for gameplay. |
+| **Realm** | Isolated authoritative world instance: DB, event stream, simulation workers. No cross-realm game state. |
+| **Authority / Realm Authority** | Single source of truth per realm. Validates all commits; simulations only propose. |
+| **Simulation** | Replaceable worker for combat, NPCs, movement, local logic. Never owns durable state. |
+| **Event Bus** | Pub/sub (e.g. NATS/JetStream) between Realm Core and simulations — no direct Realm ↔ sim coupling. |
+| **Layer** | Shard of a zone (player cap). One simulation per layer; layers can merge or scale. |
+| **Realm Core** | Authority service: sessions, gRPC + Event Bus to simulations, persistence. |
+| **Realm Gateway** | Client edge: auth, realm routing, gameplay WebSocket. |

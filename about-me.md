@@ -1,34 +1,32 @@
 # About the Developer
 
-**Related docs:** [Project Goals](project.md) (what is being built and why) · [README](README.md) (project overview) · [Current Work](current-work.md) (transparency on explorations and decisions) · [For Sponsors](sponsor.md)
-
----
+**Related docs:** [Project Goals](project.md) · [README](README.md) · [Current Work](current-work.md) · [For Sponsors](sponsor.md)
 
 ## André Jens Meyer
 
-36 years old. Senior Full Stack Software Engineer & DevOps Specialist. Based in **Germany**. 15+ years of experience building and operating systems at scale.
+36 years old. Senior full stack engineer and DevOps-focused. Based in **Germany**. 15+ years shipping and operating systems under load.
 
-**I am a software developer, not a game developer.** I bring systems and infrastructure expertise — not decades of game design. Echoes of Order is my way of expanding into that space and learning.
+**I am a software developer, not a game developer.** I bring infra and platform muscle — not a long game-design CV. Echoes of Order is how I learn that adjacent craft.
 
-I love World of Warcraft. But I miss the depth: authority, persistence, and consequences that actually matter. My game is oriented towards WoW — the feel, the structure, the world — while exploring what happens when those technical foundations are taken seriously.
+I still play **World of Warcraft**. I want more **consequence** than modern live-service flattening often allows. This project **leans toward WoW's** sense of place while taking persistence mechanics seriously instead of hand-waving them.
 
-Echoes of Order is a **solo project** — no team, no investors. I develop it in my spare time. It is a long-term attempt to apply enterprise-grade architecture to a problem that usually gets shortchanged: the persistence and coherence of a game world. The project and its documentation are maintained so that code and decisions remain available even if the pace of development changes.
+Echoes of Order is **solo**: no payroll, no investors. Spare-time cadence. Documentation exists so code and decisions stay legible even when weeks go quiet.
 
 ## Why I'm Building This
 
-I've spent years building critical platforms, managing millions of records, and debugging distributed systems. I've seen what happens when architecture is an afterthought.
+Years on critical platforms — millions of rows, midnight outages, distributed grief. I have watched architecture treated as a **late** polish pass.
 
-Echoes of Order is the opposite. It asks: *What if I got the infrastructure right first?*
+Echoes of Order flips the order: *What if infra and authority were pass one?*
 
-Not as a demo. Not as a prototype. As a foundation that can hold the weight of a real world.
+Not a tech demo. Not a throwaway jam. A foundation that should survive **real** load.
 
 ## Background
 
 **Professional experience**
 
-- **Check24:** 7+ years building and scaling travel platforms — critical systems under load
-- **Own companies:** Full software solutions from the ground up
-- **Award:** Winner of the Leipzig Coding Contest 2011
+- **Check24:** 7+ years on travel platforms under load
+- **Own companies:** greenfield systems end to end
+- **Leipzig Coding Contest:** first place, 2011
 
 **Links**
 
@@ -37,30 +35,26 @@ Not as a demo. Not as a prototype. As a foundation that can hold the weight of a
 **Technical skills**
 
 - **Full stack:** PHP (Symfony, Laminas), React, TypeScript, Node.js, NestJS
-- **Infrastructure:** Docker, Kubernetes, AWS, CI/CD pipelines
-- **Databases:** PostgreSQL, MySQL — schema design, performance, consistency, Doctrine ORM
-- **Observability:** Prometheus, Grafana, Elasticsearch — complete monitoring setups
-- **Quality:** TDD, unit/integration/mutation testing, Playwright for E2E, PHPStan, ESLint
+- **Infrastructure:** Docker, Kubernetes, AWS, CI/CD
+- **Databases:** PostgreSQL, MySQL — schema design, performance, Doctrine ORM
+- **Observability:** Prometheus, Grafana, Elasticsearch
+- **Quality:** TDD, unit/integration/mutation tests, Playwright E2E, PHPStan, ESLint
 
 ## What I Bring to This
 
-- Experience designing systems that run under load
-- Patience for getting the abstractions right
-- No investors or deadlines pressuring shortcuts
-- A commitment to correctness over speed
+- Systems that survive traffic spikes
+- Patience for sharp abstractions
+- No investor sprint forcing half-measures
+- Bias toward correctness over demo velocity
 
 ## Transparency & Decisions
 
-I do **not** promise timelines, features, or delivery dates.
+I **do not** promise roadmaps, feature locks, or marketing dates.
 
-I *do* commit to:
+I **do** publish architectural forks when they matter, say plainly what is missing, and document **why** a trade-off went the way it did.
 
-- Documenting and publishing important architectural and design decisions
-- Being transparent about what exists, what does not, and why
-- Communicating trade-offs and reasoning when choices are made
-
-Important decisions are written down and made available — so anyone can follow the reasoning, even years later. See [Current Work](current-work.md) for active explorations and key past decisions, and [Explorations](explorations/README.md) for full exploration write-ups. Decision records (context, rationale) are in the project repository under `docs/3_decisions`.
+Follow the trail: [Current Work](current-work.md), [Explorations](explorations/README.md), [Devlogs](devlogs/README.md), and `docs/3_decisions` in the main repository.
 
 ## The Game
 
-The game will arrive when the systems are ready. Not before.
+Ships when the systems earn it. Not before.
