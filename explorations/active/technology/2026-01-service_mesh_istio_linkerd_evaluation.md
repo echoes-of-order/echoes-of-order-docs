@@ -11,7 +11,7 @@ I evaluated a service mesh to get automatic mTLS between services, traffic manag
 - Features: automatic mTLS, traffic splitting, retries, and observability (metrics, tracing).
 - Istio vs. Linkerd: complexity, resource usage, and fit with the stack.
 - Prerequisites: Kubernetes as the base; relation to existing ingress and service discovery.
-- Operational cost: installation, upgrades, debugging, and failure behaviour.
+- Operational cost: installation, upgrades, debugging, and failure behavior.
 - Overlap with other explorations: zero trust (mTLS), OpenTelemetry (tracing), Kubernetes migration.
 
 ## Outcome

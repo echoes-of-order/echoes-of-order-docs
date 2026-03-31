@@ -9,7 +9,7 @@ I evaluated whether GraphQL Subscriptions could replace or complement the existi
 ## Points Considered
 
 - GraphQL Subscriptions: real-time over WebSocket, schema-based, good for request/response-style subscriptions; typically JSON.
-- Game-server framework (e.g. Colyseus): built for game loops, state sync, rooms, and often binary protocols; optimised for high update rates and many concurrent connections.
+- Game-server framework (e.g. Colyseus): built for game loops, state sync, rooms, and often binary protocols; optimized for high update rates and many concurrent connections.
 - Comparison: bandwidth and update rate; built-in state sync, room management, and lag compensation vs. implementing them on top of GraphQL.
 - Fit with the architecture: authoritative server state, high-frequency updates, and predictable latency are required; a game-oriented stack aligned better with that.
 

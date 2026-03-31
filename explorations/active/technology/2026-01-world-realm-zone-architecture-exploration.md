@@ -15,4 +15,4 @@ I needed a clear model for how the persistent world is split into realms and zon
 
 ## Outcome
 
-Under evaluation. A WoW-style model (realm = unit of truth, one zone = one simulation per layer, no meshing) is the current direction. Detailed zone boundaries, layering, and warmup behaviour are still being explored.
+Under evaluation. A WoW-style model (realm = unit of truth, one zone = one simulation per layer, no meshing) is the current direction. Detailed zone boundaries, layering, and warmup behavior are still being explored.

@@ -15,4 +15,4 @@ I explored automatically testing API contracts (e.g. by generating or updating t
 
 ## Outcome
 
-**On hold.** Automated API testing was deferred in favour of other infrastructure and architecture work. It may be revisited when the core stack is stable and the cost/benefit is clearer.
+**On hold.** Automated API testing was deferred in favor of other infrastructure and architecture work. It may be revisited when the core stack is stable and the cost/benefit is clearer.

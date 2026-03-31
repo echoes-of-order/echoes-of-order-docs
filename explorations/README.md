@@ -1,22 +1,18 @@
 # Explorations
 
-Public summaries of technology and game-design explorations. Each document here describes the **problem or idea**, **points considered**, and **outcome** (under evaluation, accepted, on hold, or rejected). Summary and status are in [Current Work](../current-work.md).
+Public summaries of technology and game-design explorations. Each file states the **problem or idea**, **what was weighed**, and **outcome** (active, accepted, on hold, rejected). Rolling status: [Current Work](../current-work.md).
 
-**Related docs:** [Current Work](../current-work.md) · [Architecture](../architecture.md) · [Infrastructure](../infrastructure.md)
+**Related docs:** [Current Work](../current-work.md) · [Devlogs](../devlogs/README.md) · [Architecture](../architecture.md) · [Infrastructure](../infrastructure.md)
 
-All documents in this folder are in **English** and written for a public audience (no internal details).
-
----
+All files here are **English**, written for a public audience (no secret internals).
 
 ## Relationship to internal explorations
 
-**What you see here** are short, distilled summaries: a few paragraphs per exploration, suitable for sponsors and external readers.
+What you read here is **short**: a few paragraphs per topic, enough for sponsors or curious engineers.
 
-**Internally I do not work from these short documents.** I keep full exploration documents in the main repository (under `docs/4_explorations` and related structure). Those internal documents are long-form: they contain detailed analysis, technology comparisons, architecture sketches, code or config examples, trade-off tables, and step-by-step reasoning. They are the source of truth for decisions and implementation.
+The **long** versions live in the main monorepo (`docs/4_explorations` and related paths). Those notebooks hold comparisons, sketches, config fragments, and step-by-step reasoning — they are the **source of truth** when a decision ships.
 
-This folder is a **derived view**: I extract problem, points considered, and outcome from the internal write-ups and publish only that summary here. So: internal = full documentation; this site = brief, public-facing overview. If you need the full context or rationale, that lives in the internal docs, not in these abbreviated pages.
-
----
+This directory is a **trimmed export**: I distill problem, considerations, and status from the internal doc. Need the full argument? Open the long-form file in the main monorepo under `docs/4_explorations` — this site stays intentionally short.
 
 ## Active — Technology
 
@@ -64,4 +60,4 @@ This folder is a **derived view**: I extract problem, points considered, and out
 |----------|--------|
 | [2025-01-graphql-subscriptions-vs-colyseus](rejected/technology/2025-01-graphql-subscriptions-vs-colyseus.md) | GraphQL Subscriptions vs. Colyseus |
 
-See [rejected/README.md](rejected/README.md) for the purpose and format of rejected explorations.
+See [rejected/README.md](rejected/README.md) for why rejected write-ups exist.
