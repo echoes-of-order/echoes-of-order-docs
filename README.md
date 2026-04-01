@@ -13,7 +13,7 @@ Persistent world, **explicit authority**, replaceable simulations — long-term 
 ## How to Read This Documentation
 
 - **New here?** This README, then [Architecture](architecture.md) (who owns state, how simulations attach), then [Current State](game-status.md) (inventory of what runs).
-- **Ops and deployment?** [Infrastructure](infrastructure.md) and [Diagrams](diagrams.md) for flows.
+- **Ops and deployment?** [Infrastructure](infrastructure.md) (stack, databases, **architecture poster**) and [Diagrams](diagrams.md) for flows.
 - **Explorations and decisions?** [Current Work](current-work.md) for status; deeper summaries in [Explorations](explorations/README.md). Formal ADR-style material lives in the main repository under `docs/3_decisions`.
 - **Shipped work in prose?** [Devlogs](devlogs/README.md) (migration stories, product-sized auth changes, etc.).
 

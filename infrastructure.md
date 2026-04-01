@@ -6,6 +6,21 @@ Echoes of Order runs on **Kubernetes** (k3s locally), with **Helm** for deployme
 
 Motivation for Envoy Gateway vs. classic Ingress: [Devlog #1 — Traefik to Envoy Gateway](devlogs/2026-03-devlog-02-traefik-envoy-gateway-migration.md).
 
+## Infrastructure planning workflow (Miro)
+
+I plan infrastructure changes in **Miro** before touching Helm or service code. The board starts with runtime layers (edge, clients, auth, gateway, global, realm, data, observability), then adds concrete services, protocols, and ownership boundaries. This makes coupling visible early and prevents accidental cross-domain assumptions.
+
+The key benefit is dependency discovery before implementation:
+
+- Which component is authoritative for a given state transition
+- Which calls are synchronous vs. asynchronous
+- Which databases are shared vs. realm-scoped
+- Which failure in one layer can cascade into another
+
+By forcing these relationships into one map first, risks become explicit: missing routes, wrong service ownership, hidden bottlenecks, and weak fallback paths. That reduces rework and helps avoid production issues that usually come from architecture drift rather than from isolated code defects.
+
+<img src="images/infrastructure-architecture-overview.png" alt="Infrastructure overview planned in Miro" style="background-color: #ffffff;" />
+
 ## Philosophy
 
 Infrastructure is not an afterthought. It is part of the game design.
