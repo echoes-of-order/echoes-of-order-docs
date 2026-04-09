@@ -9,7 +9,7 @@
 | TypeScript/TSX lines of code | ~121,000 |
 | TypeScript/TSX files | ~3,200 |
 | Deployed workloads (Helm chart) | 15+ |
-| Shared domain packages | 4 (combat engine, movement engine, gRPC contracts, logging) |
+| Shared domain packages | 4 |
 | PostgreSQL roles | 6+ (Auth, Global, Realm per realm, Armory, Image-Server, World-Authoring) |
 | Technology & game-design explorations | 21 |
 | Sequence diagrams | 11 |
