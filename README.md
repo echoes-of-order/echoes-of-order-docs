@@ -4,7 +4,7 @@
 
 Persistent world, **explicit authority**, replaceable simulations — long-term state before spectacle.
 
-**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Devlogs](devlogs/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [About](about-me.md) · [For Sponsors](sponsor.md)
+**Quick navigation:** [Architecture](architecture.md) · [Infrastructure](infrastructure.md) · [Current State](game-status.md) · [Current Work](current-work.md) · [Explorations](explorations/README.md) · [Devlogs](devlogs/README.md) · [Diagrams](diagrams.md) · [Project Goals](project.md) · [Gameplay Concepts](gameplay/README.md) · [About](about-me.md) · [For Sponsors](sponsor.md)
 
 ## Who This Documentation Is For
 
@@ -86,7 +86,7 @@ Long-term **solo** project: no studio payroll, no investors pushing quarterly fe
 
 No roadmaps for feature X by date Y. Decisions stay written down when they matter.
 
-**Follow:** [Current Work](current-work.md), [Explorations](explorations/README.md), [Devlogs](devlogs/README.md), and the links under [For Sponsors](sponsor.md#how-to-follow-updates).
+**Follow:** [Current Work](current-work.md), [Explorations](explorations/README.md), [Devlogs](devlogs/README.md), and the links under [For Sponsors](sponsor.md#how-to-follow-and-give-feedback).
 
 ## Documentation
 
@@ -100,6 +100,7 @@ No roadmaps for feature X by date Y. Decisions stay written down when they matte
 | [Devlogs](devlogs/README.md) | Narrative write-ups of shipped changes (edge, auth, …). |
 | [Diagrams](diagrams.md) | Sequence diagrams (login, reconnect, layers, Event Bus, …). |
 | [Project Goals](project.md) | Intent, design goals, audience. |
+| [Gameplay Concepts](gameplay/README.md) | Feature concepts |
 | [About the Developer](about-me.md) | Builder background and transparency stance. |
 | [For Sponsors](sponsor.md) | Funding, principles, follow links. |
 

@@ -43,9 +43,10 @@ Ways to contribute:
 
 **André Jens Meyer** — senior full stack engineer and DevOps focus, 15+ years, Germany. Check24 (7+ years), own companies, Leipzig Coding Contest 2011. Solo build; spare time. Full CV and stance: [About the Developer](about-me.md).
 
-## How to Follow Updates
+## How to Follow and Give Feedback
 
 - **Docs:** [Current Work](current-work.md), [Explorations](explorations/README.md), and [Devlogs](devlogs/README.md) when something material ships.
 - **Social:** [X (Twitter)](https://x.com/EoO_MMORPG), [itch.io](https://echoes-of-order.itch.io/). If X is not reachable where you are, the docs above are the main channel.
+- **Feedback and discussion:** [GitHub Discussions](https://github.com/echoes-of-order/echoes-of-order-docs/discussions). Critique, ideas, and open questions are explicitly welcome.
 
 No release calendar — only continued focus on correctness, clarity, and transparency.
